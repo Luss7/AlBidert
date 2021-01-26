@@ -8,7 +8,8 @@ import random
 import nltk
 from nltk.stem import WordNetLemmatizer
 lemmatizer = WordNetLemmatizer()
-intents_file = open('intents.json').read()
+intents_file = open(
+    'D:/Documents/ENSC/GitHub/AlBidert/TestChatbot/intents.json').read()
 intents = json.loads(intents_file)
 
 # Technique tokenisation -> diviser la phrase en mots
