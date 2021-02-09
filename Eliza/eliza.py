@@ -5,7 +5,9 @@ from collections import namedtuple
 from google_trans_new import google_translator
 import fnmatch
 import os, os.path
-from tkinter import *
+import tkinter as tk
+import tkinter.ttk as ttk
+import tkinter.scrolledtext as ScrolledText
 
 translator = google_translator()
 
@@ -14,6 +16,7 @@ try: input = raw_input
 except NameError: pass
 
 log = logging.getLogger(__name__)
+
 
 class Key:
     def __init__(self, word, weight, decomps):
@@ -40,6 +43,9 @@ class Eliza:
         self.synons = {}
         self.keys = {}
         self.memory = []
+
+        dirpath = "D:/Documents/ENSC/GitHub/AlBidert/Eliza"
+        self.num_fichier = len(fnmatch.filter(os.listdir(dirpath), "texte_utilisateur*.txt"))
 
     def load(self, path):
         key = None
@@ -174,9 +180,9 @@ class Eliza:
         return None
 
     def respond(self, text):
-        if text.lower() in self.quits:
-            return None
-
+        for words in text.split(' '):
+            if words in self.quits:
+                return "quit"
         text = re.sub(r'\s*\.+\s*', ' . ', text)
         text = re.sub(r'\s*,+\s*', ' , ', text)
         text = re.sub(r'\s*;+\s*', ' ; ', text)
@@ -224,72 +230,86 @@ class Eliza:
         while True:
             sent = input('> ')
             write_in_file("Eliza/texte_utilisateur"+str(nb_fichier_text+1)+".txt",sent)
-            output = translator.translate(self.respond(translator.translate(sent,lang_tgt='en')),lang_tgt='fr')
+            output = translator.translate(translator.translate(self.respond(sent),lang_tgt='en'),lang_tgt='fr')
             if output is None:
                 break
 
             print(output)
 
         print(self.final())
+    
 
 # Creating tkinter GUI
 
-class Interface:
-    def __init__(self):
-        self.root = Tk()
-        self.root.title("Chatbot")
-        self.root.geometry("400x500")
-        self.root.resizable(width=FALSE, height=FALSE)
+class Interface(tk.Tk):
+    def __init__(self,*args, **kwargs):
+        tk.Tk.__init__(self,*args, **kwargs)
 
+        self.title("Chatbot")
+        self.geometry("400x500")
+        self.resizable(width=tk.FALSE, height=tk.FALSE)
+
+        self.chatbot = Eliza()
+        self.chatbot.load('D:/Documents/ENSC/GitHub/AlBidert/Eliza/doctor.txt')
+        
+        self.initialize()
+
+    def initialize(self):
+          
         # Create Chat window
-        ChatBox = Text(self.root, bd=0, bg="white", height="8", width="50", font="Arial",)
-
-        ChatBox.config(state=DISABLED)
+        
+        self.ChatBox = tk.Text(self, bd=0, bg="white", height="8", width="50", font="Arial",)
+        self.ChatBox.insert(tk.END,"AlBidert: "+self.chatbot.initial()+'\n\n');
+        self.ChatBox.config(state=tk.DISABLED)
 
         # Bind scrollbar to Chat window
-        scrollbar = Scrollbar(self.root, command=ChatBox.yview, cursor="heart")
-        ChatBox['yscrollcommand'] = scrollbar.set
-
-        # Create Button to send message
-        SendButton = Button(self.root, font=("Verdana", 12, 'bold'), text="Send", width="12", height=5,
-                            bd=0, bg="#f9a602", activebackground="#3c9d9b", fg='#000000',
-                            command=self.send)
+        self.scrollbar = tk.Scrollbar(self, command=self.ChatBox.yview, cursor="heart")
+        self.ChatBox['yscrollcommand'] = self.scrollbar.set
 
         # Create the box to enter message
-        EntryBox = Text(self.root, bd=0, bg="white", width="29", height="5", font="Arial")
+        self.EntryBox = tk.Text(self, bd=0, bg="white", width="29", height="5", font="Arial")
         #EntryBox.bind("<Return>", send)
 
+        # Create Button to send message
+        self.SendButton = tk.Button(self, font=("Verdana", 12, 'bold'), text="Envoyer", width="10", height=5,
+                            bd=0, bg="#f9a602", activebackground="#3c9d9b", fg='#000000',
+                            command=self.get_response)
 
         # Place all components on the screen
-        scrollbar.place(x=376, y=6, height=386)
-        ChatBox.place(x=6, y=6, height=386, width=370)
-        EntryBox.place(x=128, y=401, height=90, width=265)
-        SendButton.place(x=6, y=401, height=90)
+        self.scrollbar.place(x=376, y=6, height=386)
+        self.ChatBox.place(x=6, y=6, height=386, width=370)
+        self.EntryBox.place(x=128, y=401, height=90, width=265)
+        self.SendButton.place(x=6, y=401, height=90)
 
-        self.root.mainloop()
+    def get_response(self):
 
-    def send(self):
         msg = self.EntryBox.get("1.0", 'end-1c').strip()
-        self.EntryBox.delete("0.0", END)
+        self.EntryBox.delete("0.0", tk.END)
+
+        write_in_file("Eliza/texte_utilisateur"+str(self.chatbot.num_fichier)+".txt",msg)
 
         if msg != '':
-            self.ChatBox.config(state=NORMAL)
-            self.ChatBox.insert(END, "You: " + msg + '\n\n')
+            self.ChatBox.config(state=tk.NORMAL)
+            self.ChatBox.insert(tk.END, "You: " + msg + '\n\n')
             self.ChatBox.config(foreground="#446665", font=("Verdana", 12))
+            res = self.chatbot.respond(translator.translate(msg))
 
-            res = translator.translate(Eliza.respond(translator.translate(msg,lang_tgt='en')),lang_tgt='fr')
-            self.ChatBox.insert(END, "Bot: " + res + '\n\n')
+            if res == "quit":
+                res = self.chatbot.final()
 
-            self.ChatBox.config(state=DISABLED)
-            self.ChatBox.yview(END)
+            rep = translator.translate(res,lang_tgt='fr')
 
+            self.ChatBox.insert(tk.END, "AlBidert: " + rep + '\n\n')
+
+            self.ChatBox.config(state=tk.DISABLED)
+            self.ChatBox.yview(tk.END)
 
 
 def main():
     eliza = Eliza()
     eliza.load('D:/Documents/ENSC/GitHub/AlBidert/Eliza/doctor.txt')
     eliza.run()
-
+    
 def write_in_file(path,texte):
     # ouverture du fichier_in en écriture
     with open(path, 'a', encoding='utf-8') as file_in:
@@ -297,4 +317,6 @@ def write_in_file(path,texte):
 
 if __name__ == '__main__':
     logging.basicConfig()
-    main()
+    # main()
+    interface = Interface()
+    interface.mainloop() 
