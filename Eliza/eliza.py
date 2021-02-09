@@ -2,7 +2,10 @@ import logging
 import random
 import re
 from collections import namedtuple
-from google_trans_new.google_trans_new import google_translator
+from google_trans_new import google_translator
+import fnmatch
+import os, os.path
+from tkinter import *
 
 translator = google_translator()
 
@@ -11,7 +14,6 @@ try: input = raw_input
 except NameError: pass
 
 log = logging.getLogger(__name__)
-
 
 class Key:
     def __init__(self, word, weight, decomps):
@@ -42,7 +44,7 @@ class Eliza:
     def load(self, path):
         key = None
         decomp = None
-        with open(path) as file:
+        with open(path,encoding='utf-8') as file:
             for line in file:
                 if not line.strip():
                     continue
@@ -215,12 +217,14 @@ class Eliza:
         return random.choice(self.finals)
 
     def run(self):
+        dirpath = "D:/Documents/ENSC/GitHub/AlBidert/Eliza"
         print(self.initial())
-
+        nb_fichier_text = len(fnmatch.filter(os.listdir(dirpath), "texte_utilisateur*.txt"))
+        
         while True:
-            sent = translator.translate(input('> '),lang_tgt='en')
-
-            output = translator.translate(self.respond(sent),lang_tgt='fr')
+            sent = input('> ')
+            write_in_file("Eliza/texte_utilisateur"+str(nb_fichier_text+1)+".txt",sent)
+            output = translator.translate(self.respond(translator.translate(sent,lang_tgt='en')),lang_tgt='fr')
             if output is None:
                 break
 
@@ -228,11 +232,68 @@ class Eliza:
 
         print(self.final())
 
+# Creating tkinter GUI
+
+class Interface:
+    def __init__(self):
+        self.root = Tk()
+        self.root.title("Chatbot")
+        self.root.geometry("400x500")
+        self.root.resizable(width=FALSE, height=FALSE)
+
+        # Create Chat window
+        ChatBox = Text(self.root, bd=0, bg="white", height="8", width="50", font="Arial",)
+
+        ChatBox.config(state=DISABLED)
+
+        # Bind scrollbar to Chat window
+        scrollbar = Scrollbar(self.root, command=ChatBox.yview, cursor="heart")
+        ChatBox['yscrollcommand'] = scrollbar.set
+
+        # Create Button to send message
+        SendButton = Button(self.root, font=("Verdana", 12, 'bold'), text="Send", width="12", height=5,
+                            bd=0, bg="#f9a602", activebackground="#3c9d9b", fg='#000000',
+                            command=self.send)
+
+        # Create the box to enter message
+        EntryBox = Text(self.root, bd=0, bg="white", width="29", height="5", font="Arial")
+        #EntryBox.bind("<Return>", send)
+
+
+        # Place all components on the screen
+        scrollbar.place(x=376, y=6, height=386)
+        ChatBox.place(x=6, y=6, height=386, width=370)
+        EntryBox.place(x=128, y=401, height=90, width=265)
+        SendButton.place(x=6, y=401, height=90)
+
+        self.root.mainloop()
+
+    def send(self):
+        msg = self.EntryBox.get("1.0", 'end-1c').strip()
+        self.EntryBox.delete("0.0", END)
+
+        if msg != '':
+            self.ChatBox.config(state=NORMAL)
+            self.ChatBox.insert(END, "You: " + msg + '\n\n')
+            self.ChatBox.config(foreground="#446665", font=("Verdana", 12))
+
+            res = translator.translate(Eliza.respond(translator.translate(msg,lang_tgt='en')),lang_tgt='fr')
+            self.ChatBox.insert(END, "Bot: " + res + '\n\n')
+
+            self.ChatBox.config(state=DISABLED)
+            self.ChatBox.yview(END)
+
+
 
 def main():
     eliza = Eliza()
     eliza.load('D:/Documents/ENSC/GitHub/AlBidert/Eliza/doctor.txt')
     eliza.run()
+
+def write_in_file(path,texte):
+    # ouverture du fichier_in en écriture
+    with open(path, 'a', encoding='utf-8') as file_in:
+        file_in.write('\n'+texte)
 
 if __name__ == '__main__':
     logging.basicConfig()

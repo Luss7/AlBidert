@@ -2,8 +2,14 @@ import logging
 import random
 import re
 from collections import namedtuple
+from google_trans_new import google_translator
+import fnmatch
+import os, os.path
+import tkinter as tk
+import tkinter.ttk as ttk
+import tkinter.scrolledtext as ScrolledText
 
-transla
+translator = google_translator()
 
 # Fix Python2/Python3 incompatibility
 try: input = raw_input
@@ -41,7 +47,7 @@ class Eliza:
     def load(self, path):
         key = None
         decomp = None
-        with open(path) as file:
+        with open(path,encoding='utf-8') as file:
             for line in file:
                 if not line.strip():
                     continue
@@ -208,20 +214,20 @@ class Eliza:
         return " ".join(output)
 
     def initial(self):
-        #phrase d'intro
         return random.choice(self.initials)
 
     def final(self):
         return random.choice(self.finals)
 
     def run(self):
-        #phrase d'intro
+        dirpath = "D:/Documents/ENSC/GitHub/AlBidert/Eliza"
         print(self.initial())
-
+        nb_fichier_text = len(fnmatch.filter(os.listdir(dirpath), "texte_utilisateur*.txt"))
+        
         while True:
             sent = input('> ')
-
-            output = self.respond(sent)
+            write_in_file("Eliza/texte_utilisateur"+str(nb_fichier_text+1)+".txt",sent)
+            output = translator.translate(self.respond(translator.translate(sent,lang_tgt='en')),lang_tgt='fr')
             if output is None:
                 break
 
@@ -229,12 +235,78 @@ class Eliza:
 
         print(self.final())
 
+# Creating tkinter GUI
+
+class Interface(tk.Tk):
+    def __init__(self,*args, **kwargs):
+        tk.Tk.__init__(self,*args, **kwargs)
+
+        self.title("Chatbot")
+        self.geometry("400x500")
+        self.resizable(width=tk.FALSE, height=tk.FALSE)
+
+        self.chatbot = Eliza()
+        self.chatbot.load('D:/Documents/ENSC/GitHub/AlBidert/Eliza/doctor.txt')
+        
+        self.initialize()
+
+    def initialize(self):
+          
+        # Create Chat window
+        
+        self.ChatBox = tk.Text(self, bd=0, bg="white", height="8", width="50", font="Arial",)
+        self.ChatBox.insert(tk.END,"AlBidert: "+self.chatbot.initial()+'\n\n');
+        self.ChatBox.config(state=tk.DISABLED)
+
+        # Bind scrollbar to Chat window
+        self.scrollbar = tk.Scrollbar(self, command=self.ChatBox.yview, cursor="heart")
+        self.ChatBox['yscrollcommand'] = self.scrollbar.set
+
+        # Create the box to enter message
+        self.EntryBox = tk.Text(self, bd=0, bg="white", width="29", height="5", font="Arial")
+        #EntryBox.bind("<Return>", send)
+
+        # Create Button to send message
+        self.SendButton = tk.Button(self, font=("Verdana", 12, 'bold'), text="Envoyer", width="10", height=5,
+                            bd=0, bg="#f9a602", activebackground="#3c9d9b", fg='#000000',
+                            command=self.get_response)
+
+        # Place all components on the screen
+        self.scrollbar.place(x=376, y=6, height=386)
+        self.ChatBox.place(x=6, y=6, height=386, width=370)
+        self.EntryBox.place(x=128, y=401, height=90, width=265)
+        self.SendButton.place(x=6, y=401, height=90)
+
+    def get_response(self):
+
+        msg = self.EntryBox.get("1.0", 'end-1c').strip()
+        self.EntryBox.delete("0.0", tk.END)
+
+        if msg != '':
+            self.ChatBox.config(state=tk.NORMAL)
+            self.ChatBox.insert(tk.END, "You: " + msg + '\n\n')
+            self.ChatBox.config(foreground="#446665", font=("Verdana", 12))
+
+            res = translator.translate(self.chatbot.respond(translator.translate(msg,lang_tgt='en')),lang_tgt='fr')
+            self.ChatBox.insert(tk.END, "AlBidert: " + res + '\n\n')
+
+            self.ChatBox.config(state=tk.DISABLED)
+            self.ChatBox.yview(tk.END)
+
+
 
 def main():
     eliza = Eliza()
     eliza.load('D:/Documents/ENSC/GitHub/AlBidert/Eliza/doctor.txt')
     eliza.run()
+    
+def write_in_file(path,texte):
+    # ouverture du fichier_in en écriture
+    with open(path, 'a', encoding='utf-8') as file_in:
+        file_in.write('\n'+texte)
 
 if __name__ == '__main__':
     logging.basicConfig()
-    main()
+    #main()
+    interface = Interface()
+    interface.mainloop() 
