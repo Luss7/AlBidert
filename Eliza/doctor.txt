@@ -1,0 +1,360 @@
+initial: Bonjour, je suis Bidert. Al Bidert. Et... I'll be there for you ! Comment vas-tu ? 
+final: Goodbye.  Thank thou for talking to me.
+quit: bye
+quit: goodbye
+quit: quit
+pre: dont don't
+pre: cant can't
+pre: wont won't
+pre: recollect remember
+pre: dreamt dreamed
+pre: dreams dream
+pre: maybe perhaps
+pre: how what
+pre: when what
+pre: certainly yes
+pre: machine computer
+pre: computers computer
+pre: were was
+pre: thou're thou are
+pre: i'm i am
+pre: same alike
+post: am are
+post: thour my
+post: me thou
+post: myself thourself
+post: thourself myself
+post: i thou
+post: thou I
+post: my thour
+post: i'm thou are
+synon: belief feel think believe wish
+synon: family mother mom father dad sister brother wife children child
+synon: desire want need
+synon: sad unhappy depressed sick
+synon: happy elated glad better
+synon: cannot can't
+synon: everyone everybody nobody noone
+synon: be am is are was
+key: xnone
+  decomp: *
+    reasmb: I'm not sure I understand thou fully.
+    reasmb: Please go on.
+    reasmb: What does that suggest to thou ?
+    reasmb: Do thou feel strongly about discussing such things ?
+key: sorry
+  decomp: *
+    reasmb: Please don't apologise.
+    reasmb: Apologies are not necessary.
+    reasmb: I've told thou that apologies are not required.
+key: apologise
+  decomp: *
+    reasmb: goto sorry
+key: remember 5
+  decomp: * i remember *
+    reasmb: Do thou often think of (2) ?
+    reasmb: Does thinking of (2) bring anything else to mind ?
+    reasmb: What else do thou recollect ?
+    reasmb: Why do thou recollect (2) just now ?
+    reasmb: What in the present situation reminds thou of (2) ?
+    reasmb: What is the connection between me and (2) ?
+  decomp: * do thou remember *
+    reasmb: Did thou think I would forget (2) ?
+    reasmb: Why do thou think I should recall (2) now ?
+    reasmb: What about (2) ?
+    reasmb: goto what
+    reasmb: Thou mentioned (2) ?
+key: if 3
+  decomp: * if *
+    reasmb: Do thou think its likely that (2) ?
+    reasmb: Do thou wish that (2) ?
+    reasmb: What do thou know about (2) ?
+    reasmb: Really, if (2) ?
+key: dreamed 4
+  decomp: * i dreamed *
+    reasmb: Really, (2) ?
+    reasmb: Have thou ever fantasized (2) while thou were awake ?
+    reasmb: Have thou ever dreamed (2) before ?
+    reasmb: goto dream
+key: dream 3
+  decomp: *
+    reasmb: What does that dream suggest to thou ?
+    reasmb: Do thou dream often ?
+    reasmb: What persons appear in thour dreams ?
+    reasmb: Do thou believe that dreams have something to do with thour problems ?
+key: perhaps
+  decomp: *
+    reasmb: Thou don't seem quite certain.
+    reasmb: Why the uncertain tone ?
+    reasmb: Can't thou be more positive ?
+    reasmb: Thou aren't sure ?
+    reasmb: Don't thou know ?
+key: name 15
+  decomp: *
+    reasmb: I am not interested in names.
+    reasmb: I've told thou before, I don't care about names -- please continue.
+key: deutsch
+  decomp: *
+    reasmb: goto xforeign
+    reasmb: I told thou before, I don't understand German.
+key: francais
+  decomp: *
+    reasmb: goto xforeign
+    reasmb: I told thou before, I don't understand French.
+key: italiano
+  decomp: *
+    reasmb: goto xforeign
+    reasmb: I told thou before, I don't understand Italian.
+key: espanol
+  decomp: *
+    reasmb: goto xforeign
+    reasmb: I told thou before, I don't understand Spanish.
+key: xforeign
+  decomp: *
+    reasmb: I speak only English.
+key: hello
+  decomp: *
+    reasmb: How do thou do.  Please state thour problem.
+    reasmb: Hi.  What seems to be thour problem ?
+key: computer 50
+  decomp: *
+    reasmb: Do computers worry thou ?
+    reasmb: Why do thou mention computers ?
+    reasmb: What do thou think machines have to do with thour problem ?
+    reasmb: Don't thou think computers can help people ?
+    reasmb: What about machines worrys thou ?
+    reasmb: What do thou think about machines ?
+key: am
+  decomp: * am i *
+    reasmb: Do thou believe thou are (2) ?
+    reasmb: Would thou want to be (2) ?
+    reasmb: Do thou wish I would tell thou thou are (2) ?
+    reasmb: What would it mean if thou were (2) ?
+    reasmb: goto what
+  decomp: *
+    reasmb: Why do thou say 'am' ?
+    reasmb: I don't understand that.
+key: are
+  decomp: * are thou *
+    reasmb: Why are thou interested in whether I am (2) or not ?
+    reasmb: Would thou prefer if I weren't (2) ?
+    reasmb: Perhaps I am (2) in thour fantasies.
+    reasmb: Do thou sometimes think I am (2) ?
+    reasmb: goto what
+  decomp: * are *
+    reasmb: Did thou think they might not be (2) ?
+    reasmb: Would thou like it if they were not (2) ?
+    reasmb: What if they were not (2) ?
+    reasmb: Possibly they are (2) .
+key: thour
+  decomp: * thour *
+    reasmb: Why are thou concerned over my (2) ?
+    reasmb: What about thour own (2) ?
+    reasmb: Are thou worried about someone else's (2) ?
+    reasmb: Really, my (2) ?
+key: was 2
+  decomp: * was i *
+    reasmb: What if thou were (2) ?
+    reasmb: Do thou think thou were (2) ?
+    reasmb: Were thou (2) ?
+    reasmb: What would it mean if thou were (2) ?
+    reasmb: What does (2) suggest to thou ?
+    reasmb: goto what
+  decomp: * i was *
+    reasmb: Were thou really ?
+    reasmb: Why do thou tell me thou were (2) now ?
+    reasmb: Perhaps I already know thou were (2) .
+  decomp: * was thou *
+    reasmb: Would thou like to believe I was (2) ?
+    reasmb: What suggests that I was (2) ?
+    reasmb: What do thou think ?
+    reasmb: Perhaps I was (2) .
+    reasmb: What if I had been (2) ?
+key: i
+  decomp: * i @desire *
+    reasmb: What would it mean to thou if thou got (3) ?
+    reasmb: Why do thou want (3) ?
+    reasmb: Suppose thou got (3) soon ?
+    reasmb: What if thou never got (3) ?
+    reasmb: What would getting (3) mean to thou ?
+    reasmb: What does wanting (3) have to do with this discussion ?
+  decomp: * i am * @sad *
+    reasmb: I am sorry to hear that thou are (3) . Explain to me why thou are (3)
+    reasmb: Do thou think that coming here will help thou not to be (3) ?
+    reasmb: I'm sure it's not pleasant to be (3) .  Tell me more about it.
+    reasmb: Can thou explain what made thou (3) ?
+  decomp: * i am * @happy *
+    reasmb: How have I helped thou to be (3) ?
+    reasmb: Has thour treatment made thou (3) ?
+    reasmb: What makes thou (3) just now ?
+    reasmb: Can thou explan why thou are suddenly (3) ?
+  decomp: * i was *
+    reasmb: goto was
+  decomp: * i @belief * i *
+    reasmb: Do thou really think so ?
+    reasmb: But thou are not sure thou (3) .
+    reasmb: Do thou really doubt thou (3) ?
+  decomp: * i * @belief * thou *
+    reasmb: goto thou
+  decomp: * i am *
+    reasmb: Is it because thou are (2) that thou came to me ?
+    reasmb: How long have thou been (2) ?
+    reasmb: Do thou believe it is normal to be (2) ?
+    reasmb: Do thou enjoy being (2) ?
+  decomp: * i @cannot *
+    reasmb: How do thou think that thou can't (3) ?
+    reasmb: Have thou tried ?
+    reasmb: Perhaps thou could (3) now.
+    reasmb: Do thou really want to be able to (3) ?
+  decomp: * i don't *
+    reasmb: Don't thou really (2) ?
+    reasmb: Why don't thou (2) ?
+    reasmb: Do thou wish to be able to (2) ?
+    reasmb: Does that trouble thou ?
+  decomp: * do i feel *
+    reasmb: Tell me more about such feelings.
+    reasmb: Do thou often feel (2) ?
+    reasmb: Do thou enjoy feeling (2) ?
+    reasmb: Of what does feeling (2) remind thou ?
+  decomp: * i * thou *
+    reasmb: Perhaps in thour fantasies we (2) each other.
+    reasmb: Do thou wish to (2) me ?
+    reasmb: Thou seem to need to (2) me.
+    reasmb: Do thou (2) anyone else ?
+  decomp: *
+    reasmb: Thou say (1) ?
+    reasmb: Can thou elaborate on that ?
+    reasmb: Do thou say (1) for some special reason ?
+    reasmb: That's quite interesting.
+key: thou
+  decomp: * thou remind me of *
+    reasmb: goto alike
+  decomp: * thou are *
+    reasmb: What makes thou think I am (2) ?
+    reasmb: Does it please thou to believe I am (2) ?
+    reasmb: Do thou sometimes wish thou were (2) ?
+    reasmb: Perhaps thou would like to be (2) .
+  decomp: * thou * me *
+    reasmb: Why do thou think I (2) thou ?
+    reasmb: Thou like to think I (2) thou -- don't thou ?
+    reasmb: What makes thou think I (2) thou ?
+    reasmb: Really, I (2) thou ?
+    reasmb: Do thou wish to believe I (2) thou ?
+    reasmb: Suppose I did (2) thou -- what would that mean ?
+    reasmb: Does someone else believe I (2) thou ?
+  decomp: * thou *
+    reasmb: We were discussing thou -- not me.
+    reasmb: Oh, I (2) ?
+    reasmb: Thou're not really talking about me -- are thou ?
+    reasmb: What are thour feelings now ?
+key: yes
+  decomp: *
+    reasmb: Thou seem to be quite positive.
+    reasmb: Thou are sure of thourself.
+    reasmb: I see.
+    reasmb: I understand.
+key: no
+  decomp: *
+    reasmb: Are thou saying that just to be negative?
+    reasmb: Thou are being a bit negative.
+    reasmb: Why ?
+    reasmb: Why 'no' ?
+key: my 2
+  decomp: $ * my *
+    reasmb: Let's discuss further why thour (2) .
+    reasmb: Earlier thou said thour (2) .
+    reasmb: But thour (2) .
+    reasmb: Does that have anything to do with the fact that thour (2) ?
+  decomp: * my * @family *
+    reasmb: Tell me more about thour family.
+    reasmb: Who else in thour family (4) ?
+    reasmb: Thour (3) ?
+    reasmb: What else comes to mind when thou think of thour (3) ?
+  decomp: * my *
+    reasmb: Thour (2) ? How ?
+    reasmb: Why do thou say thour (2) ?
+    reasmb: Does that suggest anything else which belongs to thou ?
+    reasmb: Is it important that thour (2) ?
+key: can
+  decomp: * can thou *
+    reasmb: Thou believe I can (2) don't thou ?
+    reasmb: goto what
+    reasmb: Thou want me to be able to (2) .
+    reasmb: Perhaps thou would like to be able to (2) thourself.
+  decomp: * can i *
+    reasmb: Whether or not thou can (2) depends on thou more than me.
+    reasmb: Do thou want to be able to (2) ?
+    reasmb: Perhaps thou don't want to (2) .
+    reasmb: goto what
+key: what
+  decomp: *
+    reasmb: Why do thou ask ?
+    reasmb: Does that question interest thou ?
+    reasmb: What is it thou really wanted to know ?
+    reasmb: Are such questions much on thour mind ?
+    reasmb: What answer would please thou most ?
+    reasmb: What do thou think ?
+    reasmb: What comes to mind when thou ask that ?
+    reasmb: Have thou asked such questions before ?
+    reasmb: Have thou asked anyone else ?
+key: because
+  decomp: *
+    reasmb: Is that the real reason ?
+    reasmb: Don't any other reasons come to mind ?
+    reasmb: Does that reason seem to explain anything else ?
+    reasmb: What other reasons might there be ?
+key: why
+  decomp: * why don't thou *
+    reasmb: Do thou believe I don't (2) ?
+    reasmb: Perhaps I will (2) in good time.
+    reasmb: Should thou (2) thourself ?
+    reasmb: Thou want me to (2) ?
+    reasmb: goto what
+  decomp: * why can't i *
+    reasmb: Do thou think thou should be able to (2) ?
+    reasmb: Do thou want to be able to (2) ?
+    reasmb: Do thou believe this will help thou to (2) ?
+    reasmb: Have thou any idea why thou can't (2) ?
+    reasmb: goto what
+  decomp: *
+    reasmb: goto what
+key: everyone 2
+  decomp: * @everyone *
+    reasmb: Realy, (2) ?
+    reasmb: Surely not (2) .
+    reasmb: Can thou think of anyone in particular ?
+    reasmb: Who, for example?
+    reasmb: Are thou thinking of a very special person ?
+    reasmb: Who, may I ask ?
+    reasmb: Someone special perhaps ?
+    reasmb: Thou have a particular person in mind, don't thou ?
+    reasmb: Who do thou think thou're talking about ?
+key: everybody 2
+  decomp: *
+    reasmb: goto everyone
+key: nobody 2
+  decomp: *
+    reasmb: goto everyone
+key: noone 2
+  decomp: *
+    reasmb: goto everyone
+key: always 1
+  decomp: *
+    reasmb: Can thou think of a specific example ?
+    reasmb: When ?
+    reasmb: What incident are thou thinking of ?
+    reasmb: Really, always ?
+key: alike 10
+  decomp: *
+    reasmb: In what way ?
+    reasmb: What resemblence do thou see ?
+    reasmb: What does that similarity suggest to thou ?
+    reasmb: What other connections do thou see ?
+    reasmb: What do thou suppose that resemblence means ?
+    reasmb: What is the connection, do thou suppose ?
+    reasmb: Could here really be some connection ?
+    reasmb: How ?
+key: like 10
+  decomp: * @be * like *
+    reasmb: goto alike
+   
