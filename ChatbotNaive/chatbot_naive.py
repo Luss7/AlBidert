@@ -22,7 +22,7 @@ def intro_questionnaire():
             print("Je n'ai pas compris")
 
 
-def questionnaire_BPN():
+def intro_questionnaire_BPN():
     print("Ce questionnaire est basé sur les Basic Psychological Needs de (Deci & Ryan, 2008)")
     print("Il est composé de 21 questions et pour chacune d'elle, vous allez répondre par un chiffre de 1 à 7.")
     print("1: 'Pas vrai du tout'| 4: 'Un peu vrai' |7: 'Tout à fait vrai'")
@@ -41,8 +41,6 @@ def traduction(nom_fichier_in, nom_fichier_out):
 
 
 # programme principal
-path = "D:/Documents/ENSC/GitHub/AlBidert/ChatbotNaive/"
-intro_robot()
-intro_questionnaire()
-questionnaire_BPN()
-traduction("BPN_questions_anglais.txt", "BPN_questions_fr.txt")
+path = "D:/Documents/ENSC/GitHub/AlBidert/TestChatbot/"
+traduction("intents.json", "intents_fr.json")
+print("Traduction effectuée")

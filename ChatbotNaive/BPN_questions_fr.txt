@@ -1,12 +1,12 @@
- 1. Je me sens libre de décider moi-même comment vivre ma vie.
- 2. J'aime vraiment les gens avec qui j'interagis.
- 3. Souvent, je ne me sens pas très compétent.
- 4. Je me sens sous pression dans ma vie.
- 5. Les gens que je connais me disent que je suis bon dans ce que je fais.
- 6. Je m'entends avec les gens avec qui je suis en contact.
- 7. Je reste à peu près seul et je n'ai pas beaucoup de contacts sociaux.
- 8. Je me sens généralement libre d'exprimer mes idées et mes opinions.
- 9. Je considère les personnes avec lesquelles j'interagis régulièrement comme mes amis.
+1. Je me sens libre de décider moi-même comment vivre ma vie.
+2. J'aime vraiment les gens avec qui j'interagis.
+3. Souvent, je ne me sens pas très compétent.
+4. Je me sens sous pression dans ma vie.
+5. Les gens que je connais me disent que je suis bon dans ce que je fais.
+6. Je m'entends avec les gens avec qui je suis en contact.
+7. Je reste à peu près seul et je n'ai pas beaucoup de contacts sociaux.
+8. Je me sens généralement libre d'exprimer mes idées et mes opinions.
+9. Je considère les personnes avec lesquelles j'interagis régulièrement comme mes amis.
 10. J'ai pu acquérir de nouvelles compétences intéressantes récemment.
 11. Dans ma vie quotidienne, je dois souvent faire ce qu'on me dit.
 12. Les gens dans ma vie se soucient de moi.

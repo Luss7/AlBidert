@@ -2,11 +2,14 @@ from tkinter import *
 import tkinter
 import random
 import json
+from google_trans_new.google_trans_new import google_translator
 from keras.models import load_model
 import numpy as np
 import pickle
 import nltk
 from nltk.stem import WordNetLemmatizer
+
+translator = google_translator()
 lemmatizer = WordNetLemmatizer()
 
 path = 'D:/Documents/ENSC/GitHub/AlBidert/TestChatbot/'
@@ -78,8 +81,8 @@ def send():
         ChatBox.insert(END, "You: " + msg + '\n\n')
         ChatBox.config(foreground="#446665", font=("Verdana", 12))
 
-        ints = predict_class(msg)
-        res = getResponse(ints, intents)
+        ints = predict_class(translator.translate(msg,lang_tgt='en'))
+        res = translator.translate(getResponse(ints, intents),lang_tgt='fr')
 
         ChatBox.insert(END, "Bot: " + res + '\n\n')
 

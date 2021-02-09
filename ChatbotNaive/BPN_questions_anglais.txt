@@ -1,12 +1,12 @@
- 1. I feel like I am free to decide for myself how to live my life.
- 2. I really like the people I interact with.
- 3. Often, I do not feel very competent.
- 4. I feel pressured in my life.
- 5. People I know tell me I am good at what I do.
- 6. I get along with people I come into contact with.
- 7. I pretty much keep to myself and don't have a lot of social contacts.
- 8. I generally feel free to express my ideas and opinions.
- 9. I consider the people I regularly interact with to be my friends.
+1. I feel like I am free to decide for myself how to live my life.
+2. I really like the people I interact with.
+3. Often, I do not feel very competent.
+4. I feel pressured in my life.
+5. People I know tell me I am good at what I do.
+6. I get along with people I come into contact with.
+7. I pretty much keep to myself and don't have a lot of social contacts.
+8. I generally feel free to express my ideas and opinions.
+9. I consider the people I regularly interact with to be my friends.
 10. I have been able to learn interesting new skills recently.
 11. In my daily life, I frequently have to do what I am told.
 12. People in my life care about me.

@@ -7,6 +7,7 @@ from keras.optimizers import SGD
 import random
 import nltk
 from nltk.stem import WordNetLemmatizer
+from google_trans_new import google_translator
 lemmatizer = WordNetLemmatizer()
 intents_file = open(
     'D:/Documents/ENSC/GitHub/AlBidert/TestChatbot/intents.json').read()
