@@ -44,6 +44,9 @@ class Eliza:
         self.keys = {}
         self.memory = []
 
+        dirpath = "D:/Documents/ENSC/GitHub/AlBidert/Eliza"
+        self.num_fichier = len(fnmatch.filter(os.listdir(dirpath), "texte_utilisateur*.txt"))
+
     def load(self, path):
         key = None
         decomp = None
@@ -234,6 +237,7 @@ class Eliza:
             print(output)
 
         print(self.final())
+    
 
 # Creating tkinter GUI
 
@@ -282,6 +286,9 @@ class Interface(tk.Tk):
         msg = self.EntryBox.get("1.0", 'end-1c').strip()
         self.EntryBox.delete("0.0", tk.END)
 
+        with open("Eliza/texte_utilisateur"+str(self.chatbot.num_fichier)+".txt", 'a', encoding='utf-8') as file_in:
+          file_in.write('\n'+msg)
+
         if msg != '':
             self.ChatBox.config(state=tk.NORMAL)
             self.ChatBox.insert(tk.END, "You: " + msg + '\n\n')
@@ -292,7 +299,6 @@ class Interface(tk.Tk):
 
             self.ChatBox.config(state=tk.DISABLED)
             self.ChatBox.yview(tk.END)
-
 
 
 def main():
