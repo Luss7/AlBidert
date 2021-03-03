@@ -1,12 +1,14 @@
-initial: Bonjour, je suis Bidert. Al Bidert. Et... I'll be there for you ! Je vais essayer d'analyser tes émotions. Parle moi de ce que tu ressens.
+initial: Bonjour, je suis Bidert. Al Bidert. Et... I'll be there for you ! Comment ça va ?
 final: Goodbye.  Thank thou for talking to me.
 quit: bye
 quit: goodbye
 quit: quit
+quit: exit
 pre: dont don't
 pre: cant can't
 pre: wont won't
 pre: recollect remember
+pre: recall remember
 pre: dreamt dreamed
 pre: dreams dream
 pre: maybe perhaps
@@ -19,6 +21,8 @@ pre: were was
 pre: thou're thou are
 pre: i'm i am
 pre: same alike
+pre: identical alike
+pre: equivalent alike
 post: am are
 post: thour my
 post: me thou
@@ -36,11 +40,15 @@ synon: happy elated glad better
 synon: cannot can't
 synon: everyone everybody nobody noone
 synon: be am is are was
+synon: death dead died
+synon: hello hi
 key: xnone
   decomp: *
     reasmb: I'm not sure I understand thou fully.
     reasmb: Please go on.
+    reasmb: That is interesting.  Please continue.
     reasmb: What does that suggest to thou ?
+    reasmb: Tell me more about that.
     reasmb: Do thou feel strongly about discussing such things ?
 key: sorry
   decomp: *
@@ -58,18 +66,42 @@ key: remember 5
     reasmb: Why do thou recollect (2) just now ?
     reasmb: What in the present situation reminds thou of (2) ?
     reasmb: What is the connection between me and (2) ?
+    reasmb: What else does (2) remind thou of ?
   decomp: * do thou remember *
     reasmb: Did thou think I would forget (2) ?
     reasmb: Why do thou think I should recall (2) now ?
     reasmb: What about (2) ?
     reasmb: goto what
-    reasmb: Thou mentioned (2) ?
+    reasmb: Thou mentioned (2) ?  
+  decomp: * thou remember *
+    reasmb: How could I forget (2) ?
+    reasmb: What about (2) should I remember ?
+    reasmb: goto thou
+key: forget 5
+  decomp: * i forget *
+    reasmb: Can thou think of why thou might forget (2) ?
+    reasmb: Why can't thou remember (2) ?
+    reasmb: How often do thou think of (2) ?
+    reasmb: Does it bother thou to forget that ?
+    reasmb: Could it be a mental block ?
+    reasmb: Are thou generally forgetful ?
+    reasmb: Do thou think thou are suppressing (2) ?
+  decomp: * did thou forget *
+    reasmb: Why do thou ask ?
+    reasmb: Are thou sure thou told me ?
+    reasmb: Would it bother thou if I forgot (2) ?
+    reasmb: Why should I recall (2) just now ?
+    reasmb: goto what
+    reasmb: Tell me more about (2).
 key: if 3
   decomp: * if *
     reasmb: Do thou think its likely that (2) ?
     reasmb: Do thou wish that (2) ?
     reasmb: What do thou know about (2) ?
     reasmb: Really, if (2) ?
+    reasmb: What would thou do if (2) ?
+    reasmb: But what are the chances that (2) ?
+    reasmb: What does this speculation lead to ?
 key: dreamed 4
   decomp: * i dreamed *
     reasmb: Really, (2) ?
@@ -89,6 +121,7 @@ key: perhaps
     reasmb: Can't thou be more positive ?
     reasmb: Thou aren't sure ?
     reasmb: Don't thou know ?
+  	reasmb: How likely, would you estimate ?
 key: name 15
   decomp: *
     reasmb: I am not interested in names.
@@ -131,6 +164,8 @@ key: am
     reasmb: Do thou wish I would tell thou thou are (2) ?
     reasmb: What would it mean if thou were (2) ?
     reasmb: goto what
+  decomp: * i am *
+    reasmb: goto i
   decomp: *
     reasmb: Why do thou say 'am' ?
     reasmb: I don't understand that.
@@ -141,17 +176,25 @@ key: are
     reasmb: Perhaps I am (2) in thour fantasies.
     reasmb: Do thou sometimes think I am (2) ?
     reasmb: goto what
+    reasmb: Would it matter to thou ?
+    reasmb: What if I were (2) ?
+  decomp: * you are *
+    reasmb: goto you
   decomp: * are *
     reasmb: Did thou think they might not be (2) ?
     reasmb: Would thou like it if they were not (2) ?
     reasmb: What if they were not (2) ?
-    reasmb: Possibly they are (2) .
+    reasmb: Are they always (2) ?
+		reasmb: Possibly they are (2).
+    reasmb: Are thou positive they are (2) ?
 key: thour
   decomp: * thour *
     reasmb: Why are thou concerned over my (2) ?
     reasmb: What about thour own (2) ?
     reasmb: Are thou worried about someone else's (2) ?
     reasmb: Really, my (2) ?
+    reasmb: What makes thou think of my (2) ?
+    reasmb: Do thou want my (2) ?
 key: was 2
   decomp: * was i *
     reasmb: What if thou were (2) ?
@@ -197,21 +240,22 @@ key: i
   decomp: * i * @belief * thou *
     reasmb: goto thou
   decomp: * i am *
-    reasmb: Is it because thou are (2) that thou came to me ?
     reasmb: How long have thou been (2) ?
     reasmb: Do thou believe it is normal to be (2) ?
     reasmb: Do thou enjoy being (2) ?
+    reasmb: Do thou know anyone else who is (2) ?
   decomp: * i @cannot *
     reasmb: How do thou think that thou can't (3) ?
     reasmb: Have thou tried ?
     reasmb: Perhaps thou could (3) now.
     reasmb: Do thou really want to be able to (3) ?
+    reasmb: What if thou could (3) ?
   decomp: * i don't *
     reasmb: Don't thou really (2) ?
     reasmb: Why don't thou (2) ?
     reasmb: Do thou wish to be able to (2) ?
     reasmb: Does that trouble thou ?
-  decomp: * do i feel *
+  decomp: * i feel *
     reasmb: Tell me more about such feelings.
     reasmb: Do thou often feel (2) ?
     reasmb: Do thou enjoy feeling (2) ?
@@ -223,9 +267,12 @@ key: i
     reasmb: Do thou (2) anyone else ?
   decomp: *
     reasmb: Thou say (1) ?
+    reasmb: Why do you say (1) ?
     reasmb: Can thou elaborate on that ?
     reasmb: Do thou say (1) for some special reason ?
     reasmb: That's quite interesting.
+key: it
+  reasmb: goto i am
 key: thou
   decomp: * thou remind me of *
     reasmb: goto alike
@@ -249,11 +296,21 @@ key: thou
     reasmb: What are thour feelings now ?
 key: yes
   decomp: *
-    reasmb: Okay.
-    reasmb: Thou are sure of thourself.
+    reasmb: OK, but can thou elaborate a bit ?
+    reasmb: Please go on.
+    reasmb: Please tell me some more about this.
+    reasmb: Why don't thou tell me a little more about this.
     reasmb: I see.
     reasmb: I understand.
 key: no
+  decomp: * no one *
+    reasmb: Are thou sure, no one (2) ?
+    reasmb: Surely someone (2) .
+    reasmb: Can thou think of anyone at all ?
+    reasmb: Are thou thinking of a very special person ?
+    reasmb: Who, may I ask ?
+    reasmb: You have a particular person in mind, don't thou ?
+    reasmb: Who do thou think thou are talking about ?
   decomp: *
     reasmb: Are thou saying that just to be negative?
     reasmb: Thou are being a bit negative.
@@ -265,7 +322,11 @@ key: my 2
     reasmb: Earlier thou said thour (2) .
     reasmb: But thour (2) .
     reasmb: Does that have anything to do with the fact that thour (2) ?
-  decomp: * my * @family *
+  decomp: * my * @death    
+    reasmb: I am really sorry for thour loss. 
+    reasmb: I want to express my condoleances to thou.
+    reasmb: All my condoleances.
+  decomp: * my * @family
     reasmb: Tell me more about thour family.
     reasmb: Who else in thour family (4) ?
     reasmb: Thour (3) ?
@@ -297,6 +358,18 @@ key: what
     reasmb: What comes to mind when thou ask that ?
     reasmb: Have thou asked such questions before ?
     reasmb: Have thou asked anyone else ?
+key: who 
+  decomp:  who *
+    reasmb: goto what
+key: when 
+  decomp:  when *
+    reasmb: goto what
+key: where 
+  decomp:  where *
+    reasmb: goto what
+key: how 
+  decomp:  how *
+    reasmb: goto what
 key: because
   decomp: *
     reasmb: Is that the real reason ?
@@ -357,4 +430,35 @@ key: alike 10
 key: like 10
   decomp: * @be * like *
     reasmb: goto alike
-   
+key: different 
+  decomp: *
+    reasmb: How is it different ?
+    reasmb: What differences do you see ?
+    reasmb: What does that difference suggest to you ?
+    reasmb: What other distinctions do you see ?
+    reasmb: What do you suppose that disparity means ?
+    reasmb: Could there be some connection, do you suppose ?
+    reasmb: How ?
+key: fuck 10
+  decomp: * 
+    reasmb: goto xswear
+key: fucker 10
+  decomp: * 
+    reasmb: goto xswear
+key: shit 10
+  decomp: * 
+    reasmb: goto xswear
+key: damn 10
+  decomp: * 
+    reasmb: goto xswear
+key: shut 10
+  decomp: * shut up *
+    reasmb: goto xswear
+key: xswear 10
+  decomp: * 
+    reasmb: Does it make thou feel strong to use that kind of language ?
+    reasmb: Are thou venting thour feelings now ?
+    reasmb: Are thou angry ?
+    reasmb: Does this topic make thou feel angry ? 
+    reasmb: Is something making thou feel angry ? 
+    reasmb: Does using that kind of language make thou feel better ? 

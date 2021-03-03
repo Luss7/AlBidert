@@ -9,6 +9,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 import tkinter.scrolledtext as ScrolledText
 
+rnd = random.Random()
 translator = google_translator()
 
 # Fix Python2/Python3 incompatibility
@@ -45,7 +46,7 @@ class Eliza:
         self.memory = []
 
         dirpath = "D:/Documents/ENSC/GitHub/AlBidert/Eliza"
-        self.num_fichier = len(fnmatch.filter(os.listdir(dirpath), "texte_utilisateur*.txt"))
+        self.num_fichier = len(fnmatch.filter(os.listdir(dirpath), "dialogue*.txt"))
 
     def load(self, path):
         key = None
@@ -207,8 +208,7 @@ class Eliza:
                 break
         if not output:
             if self.memory:
-                index = random.randrange(len(self.memory))
-                output = self.memory.pop(index)
+                output =  rnd.choice(self.memory)
                 log.debug('Output from memory: %s', output)
             else:
                 output = self._next_reasmb(self.keys['xnone'].decomps[0])
@@ -217,19 +217,19 @@ class Eliza:
         return " ".join(output)
 
     def initial(self):
-        return random.choice(self.initials)
+        return rnd.choice(self.initials)
 
     def final(self):
-        return random.choice(self.finals)
+        return rnd.choice(self.finals)
 
     def run(self):
         dirpath = "D:/Documents/ENSC/GitHub/AlBidert/Eliza"
         print(self.initial())
-        nb_fichier_text = len(fnmatch.filter(os.listdir(dirpath), "texte_utilisateur*.txt"))
+        nb_fichier_text = len(fnmatch.filter(os.listdir(dirpath), "dialogue*.txt"))
         
         while True:
             sent = input('> ')
-            write_in_file("Eliza/texte_utilisateur"+str(nb_fichier_text+1)+".txt",sent)
+            write_in_file("Eliza/dialogue"+str(nb_fichier_text+1)+".txt",sent)
             output = translator.translate(translator.translate(self.respond(sent),lang_tgt='en'),lang_tgt='fr')
             if output is None:
                 break
@@ -247,7 +247,6 @@ class Interface(tk.Tk):
 
         self.title("Chatbot")
         self.geometry("400x500")
-        self.resizable(width=tk.FALSE, height=tk.FALSE)
 
         self.chatbot = Eliza()
         self.chatbot.load('D:/Documents/ENSC/GitHub/AlBidert/Eliza/doctor.txt')
@@ -268,12 +267,14 @@ class Interface(tk.Tk):
 
         # Create the box to enter message
         self.EntryBox = tk.Text(self, bd=0, bg="white", width="29", height="5", font="Arial")
-        #EntryBox.bind("<Return>", send)
+        self.EntryBox.focus()
+        self.EntryBox.bind("<Return>", lambda event: self.get_response())
+
 
         # Create Button to send message
         self.SendButton = tk.Button(self, font=("Verdana", 12, 'bold'), text="Envoyer", width="10", height=5,
                             bd=0, bg="#f9a602", activebackground="#3c9d9b", fg='#000000',
-                            command=self.get_response)
+                            command=self.get_response())
 
         # Place all components on the screen
         self.scrollbar.place(x=376, y=6, height=386)
@@ -286,7 +287,7 @@ class Interface(tk.Tk):
         msg = self.EntryBox.get("1.0", 'end-1c').strip()
         self.EntryBox.delete("0.0", tk.END)
 
-        write_in_file("Eliza/texte_utilisateur"+str(self.chatbot.num_fichier)+".txt",msg)
+        write_in_file("Eliza/dialogue"+str(self.chatbot.num_fichier)+".txt","> "+msg)
 
         if msg != '':
             self.ChatBox.config(state=tk.NORMAL)
@@ -298,7 +299,6 @@ class Interface(tk.Tk):
                 res = self.chatbot.final()
 
             rep = translator.translate(res,lang_tgt='fr')
-
             self.ChatBox.insert(tk.END, "AlBidert: " + rep + '\n\n')
 
             self.ChatBox.config(state=tk.DISABLED)

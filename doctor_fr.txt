@@ -1,0 +1,3 @@
+
+<_io.TextIOWrapper name = 'D: /Documents/ENSC/GitHub/AlBidert/Eliza/doctor.txt' mode = 'a' encoding = 'utf-8'> 
+<_io.TextIOWrapper name = 'D: /Documents/ENSC/GitHub/AlBidert/Eliza/doctor.txt' mode = 'a' encoding = 'utf-8'> 

@@ -34,6 +34,7 @@ def traduction(nom_fichier_in, nom_fichier_out):
     with open(path + nom_fichier_in, 'r') as file_in:
         # on récupère le contenu du fichier texte
         texte_in = file_in.read()
+        print (len(texte_in));
     # traduction texte
         texte_out = translator.translate(texte_in, lang_tgt='fr')
         with codecs.open(path + nom_fichier_out, 'w', encoding='utf-8') as file_out:
