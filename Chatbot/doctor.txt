@@ -195,6 +195,27 @@ key: thour
     reasmb: Really, my (2) ?
     reasmb: What makes thou think of my (2) ?
     reasmb: Do thou want my (2) ?
+key: thou
+  decomp: * thou remind me of *
+    reasmb: goto alike
+  decomp: * thou are *
+    reasmb: What makes thou think I am (2) ?
+    reasmb: Does it please thou to believe I am (2) ?
+    reasmb: Do thou sometimes wish thou were (2) ?
+    reasmb: Perhaps thou would like to be (2) .
+  decomp: * thou * me *
+    reasmb: Why do thou think I (2) thou ?
+    reasmb: Thou like to think I (2) thou -- don't thou ?
+    reasmb: What makes thou think I (2) thou ?
+    reasmb: Really, I (2) thou ?
+    reasmb: Do thou wish to believe I (2) thou ?
+    reasmb: Suppose I did (2) thou -- what would that mean ?
+    reasmb: Does someone else believe I (2) thou ?
+  decomp: * thou *
+    reasmb: We were discussing thou -- not me.
+    reasmb: Oh, I (2) ?
+    reasmb: Thou're not really talking about me -- are thou ?
+    reasmb: What are thour feelings now ?
 key: was 2
   decomp: * was i *
     reasmb: What if thou were (2) ?
@@ -273,27 +294,6 @@ key: i
     reasmb: That's quite interesting.
 key: it
   reasmb: goto i am
-key: thou
-  decomp: * thou remind me of *
-    reasmb: goto alike
-  decomp: * thou are *
-    reasmb: What makes thou think I am (2) ?
-    reasmb: Does it please thou to believe I am (2) ?
-    reasmb: Do thou sometimes wish thou were (2) ?
-    reasmb: Perhaps thou would like to be (2) .
-  decomp: * thou * me *
-    reasmb: Why do thou think I (2) thou ?
-    reasmb: Thou like to think I (2) thou -- don't thou ?
-    reasmb: What makes thou think I (2) thou ?
-    reasmb: Really, I (2) thou ?
-    reasmb: Do thou wish to believe I (2) thou ?
-    reasmb: Suppose I did (2) thou -- what would that mean ?
-    reasmb: Does someone else believe I (2) thou ?
-  decomp: * thou *
-    reasmb: We were discussing thou -- not me.
-    reasmb: Oh, I (2) ?
-    reasmb: Thou're not really talking about me -- are thou ?
-    reasmb: What are thour feelings now ?
 key: yes
   decomp: *
     reasmb: OK, but can thou elaborate a bit ?

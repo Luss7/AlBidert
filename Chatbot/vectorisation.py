@@ -1,6 +1,6 @@
 import spacy
 
-dir='D:/Documents/ENSC/GitHub/AlBidert/Eliza/';
+dir='D:/Documents/ENSC/GitHub/AlBidert/Chatbot/';
 def path_to_text(path):
     with open(path, 'r') as file_in:
         # on récupère le contenu du fichier texte

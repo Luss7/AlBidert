@@ -24,6 +24,6 @@ def traduction(nom_fichier_in, nom_fichier_out):
                 file_out.write(texte_out)
 
 # programme principal
-path = "D:/Documents/ENSC/GitHub/AlBidert/Eliza/"
+path = "D:/Documents/ENSC/GitHub/AlBidert/Chatbot/"
 traduction("doctor.txt", "doctor_fr.txt")
 print("Traduction effectuée")

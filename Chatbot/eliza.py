@@ -45,7 +45,7 @@ class Eliza:
         self.keys = {}
         self.memory = []
 
-        dirpath = "D:/Documents/ENSC/GitHub/AlBidert/Eliza"
+        dirpath = "D:/Documents/ENSC/GitHub/AlBidert/Chatbot"
         self.num_fichier = len(fnmatch.filter(os.listdir(dirpath), "dialogue*.txt"))
 
     def load(self, path):
@@ -223,13 +223,13 @@ class Eliza:
         return rnd.choice(self.finals)
 
     def run(self):
-        dirpath = "D:/Documents/ENSC/GitHub/AlBidert/Eliza"
+        dirpath = "D:/Documents/ENSC/GitHub/AlBidert/Chatbot"
         print(self.initial())
         nb_fichier_text = len(fnmatch.filter(os.listdir(dirpath), "dialogue*.txt"))
         
         while True:
             sent = input('> ')
-            write_in_file("Eliza/dialogue"+str(nb_fichier_text+1)+".txt",sent)
+            write_in_file("Chatbot/dialogue"+str(nb_fichier_text+1)+".txt",sent)
             output = translator.translate(translator.translate(self.respond(sent),lang_tgt='en'),lang_tgt='fr')
             if output is None:
                 break
@@ -249,7 +249,7 @@ class Interface(tk.Tk):
         self.geometry("400x500")
 
         self.chatbot = Eliza()
-        self.chatbot.load('D:/Documents/ENSC/GitHub/AlBidert/Eliza/doctor.txt')
+        self.chatbot.load('D:/Documents/ENSC/GitHub/AlBidert/Chatbot/doctor.txt')
         
         self.initialize()
 
@@ -287,7 +287,7 @@ class Interface(tk.Tk):
         msg = self.EntryBox.get("1.0", 'end-1c').strip()
         self.EntryBox.delete("0.0", tk.END)
 
-        write_in_file("Eliza/dialogue"+str(self.chatbot.num_fichier)+".txt","> "+msg)
+        write_in_file("Chatbot/dialogue"+str(self.chatbot.num_fichier)+".txt","> "+msg)
 
         if msg != '':
             self.ChatBox.config(state=tk.NORMAL)
@@ -307,7 +307,7 @@ class Interface(tk.Tk):
 
 def main():
     eliza = Eliza()
-    eliza.load('D:/Documents/ENSC/GitHub/AlBidert/Eliza/doctor.txt')
+    eliza.load('D:/Documents/ENSC/GitHub/AlBidert/Chatbot/doctor.txt')
     eliza.run()
     
 def write_in_file(path,texte):
