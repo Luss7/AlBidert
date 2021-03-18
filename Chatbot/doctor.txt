@@ -312,8 +312,6 @@ key: no
     reasmb: You have a particular person in mind, don't thou ?
     reasmb: Who do thou think thou are talking about ?
   decomp: *
-    reasmb: Are thou saying that just to be negative?
-    reasmb: Thou are being a bit negative.
     reasmb: Why ?
     reasmb: Why 'no' ?
 key: my 2
