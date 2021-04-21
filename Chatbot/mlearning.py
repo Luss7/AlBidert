@@ -11,9 +11,10 @@ from google_trans_new import google_translator
 
 translator = google_translator();
 nlp = spacy.load('en_core_web_md');
-texte_in="J'ai rendez-vous demain après-midi avec un ami."
+texte_in="Ma grand-mère est morte..."
 texte_out = translator.translate(texte_in, lang_tgt='en');
 print(texte_out);
+
 #-----------------Fonctions------------------#
 def codageBinaire(df,colonne):
     # Codage binaire dans un nouveau DataFrame
@@ -33,6 +34,8 @@ def vectoString(text):
 
 # def vectoDataFrame(df,colonne):
 #     return new_df;
+
+
 #-----------------Programme principal-------------#
 #---Charger les données---#
 df_isear = pd.read_csv('ISEAR_0/isear_vector/isear_vector.csv',encoding= 'unicode_escape');
@@ -83,5 +86,6 @@ mlp_prediction = mlp.predict(X_test)
 
 prediction = mlp.predict_proba(nlp(texte_out).vector.reshape(1,-1));
 print(np.around(prediction,decimals=2));
+print(mlp.predict(nlp(texte_out).vector.reshape(1,-1)));
 print(mlp.score(X_test,y_test));
 
