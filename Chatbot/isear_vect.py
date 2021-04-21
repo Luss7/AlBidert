@@ -1,7 +1,8 @@
-import re
+import csv
 from catalogue import check_exists
 import spacy
 import os
+import pandas as pd
 
 nlp = spacy.load('en_core_web_md');
 
@@ -11,11 +12,19 @@ if os.path.exists(fichier_out):
     os.remove(fichier_out)
 
 with open(fichier_in,"r")as file_in:
-    with open(fichier_out, 'a',encoding='utf-8') as file_out:
-        file_out.write("Text\n");
+    with open(fichier_out, "w",newline="") as file_out:
+        title="Emotion"
+        for i in range(0,300):
+            title=title+",Text_"+str(i);
+        title=title+"\n";
+        file_out.write(title);
+        data = [];
         for line in file_in:
             if "Emotion,Text" not in line:
                 emotion, text = line.split(",",1)
-                vect=str(nlp(text).vector.tolist());
-                file_out.write(str(vect)+"\n");
-
+                vect=emotion.split()+nlp(text).vector.tolist();
+                data.append(vect);
+        writer = csv.writer(file_out)
+        writer.writerows(data);     
+    file_out.close;
+file_in.close;
