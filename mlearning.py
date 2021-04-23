@@ -11,7 +11,7 @@ from google_trans_new import google_translator
 
 translator = google_translator();
 nlp = spacy.load('en_core_web_md');
-texte_in="Ma grand-mère est morte..."
+texte_in="Mon copain m'a trompé"
 texte_out = translator.translate(texte_in, lang_tgt='en');
 print(texte_out);
 
@@ -50,7 +50,7 @@ print(df_isear);
 #Séparation des données
 X= df_isear.iloc[:,0:300];
 y=df_isear.iloc[:,300:307];
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.40)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
 print(X);
 print(y);
 # Initialisation du modèle Regression linéaire
@@ -70,7 +70,7 @@ print(lr.score(X_test,y_test))
 
 clf=DecisionTreeClassifier();
 
-prediction = clf.fit(X_train,y_train)
+prediction = clf.fit(X,y)
 
 clf_prediction = clf.predict(X_test)
 print(clf.predict(nlp(texte_out).vector.reshape(1,-1)));
@@ -80,12 +80,13 @@ print(clf.score(X_test,y_test));
 
 mlp=MLPClassifier();
 
-prediction = mlp.fit(X_train,y_train)
+prediction = mlp.fit(X_train,y_train);
 
 mlp_prediction = mlp.predict(X_test)
 
 prediction = mlp.predict_proba(nlp(texte_out).vector.reshape(1,-1));
 print(np.around(prediction,decimals=2));
 print(mlp.predict(nlp(texte_out).vector.reshape(1,-1)));
-print(mlp.score(X_test,y_test));
+
+
 
