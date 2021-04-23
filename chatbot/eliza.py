@@ -18,6 +18,7 @@ def write_in_file(path,texte):
     # ouverture du fichier_in en écriture
     with open(path, 'a', encoding='utf-8') as file_in:
         file_in.write('\n'+texte)
+    file_in.close;
 
 rnd = random.Random()
 translator = google_translator()

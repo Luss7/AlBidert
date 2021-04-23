@@ -8,6 +8,15 @@ from eliza import translator
 from eliza import pathdoctor
 from eliza import pathdialogue
 import tkinter as tk
+import joblib
+import spacy
+import numpy as np
+
+def stringToVect(text):
+    nlp = spacy.load('en_core_web_md');
+    doc = nlp(text);
+    return doc.vector;
+
 # import tkinter.ttk as ttk
 # import tkinter.scrolledtext as ScrolledText
 
@@ -73,6 +82,21 @@ class Interface(tk.Tk):
                 self.ChatBox.insert(tk.END, "AlBidert: " + rep + '\n\n')
 
                 self.ChatBox.insert(tk.END,"*Analyse de vos émotions en cours...*\n\n");
+                self.ChatBox.yview(tk.END)
+                #---Analyse de tout le texte d'un seul bloc#
+                #Recupérer le fichier texte sans la première ligne qui est vide#
+                with open(pathdialogue+"dialogue"+str(self.chatbot.num_fichier)+".txt") as f:
+                    texte = f.read();
+                print(texte);
+                #Transformer ce fichier texte en vecteur#
+                vector = stringToVect(texte);
+                print(vector);
+                #utiliser le model pour predire#
+                #-- Analyse phrase par phrase : texte = f.readlines()[1:];
+                model = joblib.load('mlp_model.pkl')
+                prediction = model.predict_proba(vector.reshape(1,-1));
+                predictionArrondi = np.around(prediction,decimals=2)
+                self.ChatBox.insert(tk.END,predictionArrondi)
                 self.ChatBox.config(state=tk.DISABLED)
                 self.ChatBox.yview(tk.END)
             else :
