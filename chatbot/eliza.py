@@ -6,11 +6,11 @@
 import random
 import re
 # from collections import namedtuple
-from google_trans_new import google_translator
+# from deep_translator import GoogleTranslator
 import fnmatch
 import os, os.path
+import pydeepl
 
-translator = google_translator()
 pathdoctor = 'D:/Documents/ENSC/GitHub/AlBidert/docs/doctor.txt'
 pathdialogue = 'D:/Documents/ENSC/GitHub/AlBidert/docs/dials/'
 
@@ -21,8 +21,6 @@ def write_in_file(path,texte):
     file_in.close;
 
 rnd = random.Random()
-translator = google_translator()
-
 # Fix Python2/Python3 incompatibility
 # try: input = raw_input
 # except NameError: pass

@@ -1,6 +1,30 @@
 from google_trans_new import google_translator
-translator = google_translator()
+from deep_translator import GoogleTranslator
+import translators as ts
+import numpy as np
+import joblib
+import spacy
 
+def stringToVect(text):
+    nlp = spacy.load('en_core_web_md');
+    doc = nlp(text);
+    return doc.vector;
+
+
+phrase ="Ma grand-mère est morte"
+pathModel='D:/Documents/ENSC/GitHub/AlBidert/docs/mlp_model.pkl'
+pathdialogue='D:/Documents/ENSC/GitHub/AlBidert/docs/dials/dialogue38.txt'
+
+
+f= open(pathdialogue)
+texte = f.read();
+model = joblib.load(pathModel)
+vector = stringToVect(GoogleTranslator().translate(texte))
+prediction=model.predict_proba(vector.reshape(1,-1))
+print(np.around(prediction,decimals=2))
+# translator = GoogleTranslator()
+# print("Google = "+translator.translate(phrase,lang_tgt='en'));
+# print("Deepl ="+ts.deepl(phrase,to_langange='en'));
 def traduction(nom_fichier_in, nom_fichier_out):
     translator = google_translator()
     # ouverture du fichier_in en lecture
@@ -24,6 +48,6 @@ def traduction(nom_fichier_in, nom_fichier_out):
                 file_out.write(texte_out)
 
 # programme principal
-path = "D:/Documents/ENSC/GitHub/AlBidert/Chatbot/"
-traduction("doctor.txt", "doctor_fr.txt")
-print("Traduction effectuée")
+# path = "D:/Documents/ENSC/GitHub/AlBidert/Chatbot/"
+# traduction("doctor.txt", "doctor_fr.txt")
+# print("Traduction effectuée")
