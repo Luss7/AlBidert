@@ -9,6 +9,9 @@ import tkinter as tk
 # import tkinter.ttk as ttk
 # import tkinter.scrolledtext as ScrolledText
 
+pathdoctor = 'D:/Documents/ENSC/GitHub/AlBidert/docs/doctor.txt'
+pathDialogue = 'D:/Documents/ENSC/GitHub/AlBidert/docs/dials/'
+
 # Creating tkinter GUI
 class Interface(tk.Tk):
     def __init__(self,*args, **kwargs):
@@ -18,7 +21,7 @@ class Interface(tk.Tk):
         self.geometry("400x500")
 
         self.chatbot = Eliza()
-        self.chatbot.load('D:/Documents/ENSC/GitHub/AlBidert/Chatbot/doctor.txt')
+        self.chatbot.load(pathdoctor)
         
         self.initialize()
 
@@ -71,7 +74,7 @@ class Interface(tk.Tk):
                 self.ChatBox.config(state=tk.DISABLED)
                 self.ChatBox.yview(tk.END)
             else :
-                write_in_file("Chatbot/dialogue"+str(self.chatbot.num_fichier)+".txt",msg)
+                write_in_file(pathDialogue+"dialogue"+str(self.chatbot.num_fichier)+".txt",msg)
                 self.ChatBox.config(state=tk.NORMAL)
                 self.ChatBox.insert(tk.END, "You: " + msg + '\n\n')
                 self.ChatBox.config(foreground="#446665", font=("Verdana", 12))

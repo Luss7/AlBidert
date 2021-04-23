@@ -11,6 +11,7 @@ import fnmatch
 import os, os.path
 
 translator = google_translator()
+pathdoctor = "/docs/doctor.txt"
 
 def write_in_file(path,texte):
     # ouverture du fichier_in en écriture
@@ -52,7 +53,7 @@ class Eliza:
         self.keys = {}
         self.memory = []
 
-        dirpath = "D:/Documents/ENSC/GitHub/AlBidert"
+        dirpath = "D:/Documents/ENSC/GitHub/AlBidert/docs/dials/"
         self.num_fichier = len(fnmatch.filter(os.listdir(dirpath), "dialogue*.txt"))
 
     def load(self, path):
@@ -229,32 +230,32 @@ class Eliza:
     def final(self):
         return rnd.choice(self.finals)
 
-    def run(self):
-        dirpath = "D:/Documents/ENSC/GitHub/AlBidert"
-        print(self.initial())
-        nb_fichier_text = len(fnmatch.filter(os.listdir(dirpath), "dialogue*.txt"))
+    # def run(self):
+    #     dirpath = "D:/Documents/ENSC/GitHub/AlBidert"
+    #     print(self.initial())
+    #     nb_fichier_text = len(fnmatch.filter(os.listdir(dirpath), "dialogue*.txt"))
         
-        while True:
-            sent = input('> ')
-            write_in_file("dialogue"+str(nb_fichier_text+1)+".txt",sent)
-            reponse1=self.respond(sent);
-            print("reponse1 = ",reponse1);
-            reponse2=translator.translate(reponse1,lang_tgt='en');
-            print("reponse2 = ",reponse2);
-            output = translator.translate(reponse2,lang_tgt='fr')
-            print("output = ",output);
-            if output is None:
-                break
+    #     while True:
+    #         sent = input('> ')
+    #         write_in_file("dialogue"+str(nb_fichier_text+1)+".txt",sent)
+    #         reponse1=self.respond(sent);
+    #         print("reponse1 = ",reponse1);
+    #         reponse2=translator.translate(reponse1,lang_tgt='en');
+    #         print("reponse2 = ",reponse2);
+    #         output = translator.translate(reponse2,lang_tgt='fr')
+    #         print("output = ",output);
+    #         if output is None:
+    #             break
 
-            print(output)
+    #         print(output)
 
-        print(self.final())
+    #     print(self.final())
     
 
-def main():
-    eliza = Eliza()
-    eliza.load('D:/Documents/ENSC/GitHub/AlBidert/doctor.txt')
-    eliza.run()
+# def main():
+#     eliza = Eliza()
+#     eliza.load(pathdoctor)
+#     eliza.run()
     
 def write_in_file(path,texte):
     # ouverture du fichier_in en écriture
