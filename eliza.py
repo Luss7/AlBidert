@@ -11,7 +11,8 @@ import fnmatch
 import os, os.path
 
 translator = google_translator()
-pathdoctor = "/docs/doctor.txt"
+pathdoctor = 'D:/Documents/ENSC/GitHub/AlBidert/docs/doctor.txt'
+pathdialogue = 'D:/Documents/ENSC/GitHub/AlBidert/docs/dials/'
 
 def write_in_file(path,texte):
     # ouverture du fichier_in en écriture
@@ -53,8 +54,7 @@ class Eliza:
         self.keys = {}
         self.memory = []
 
-        dirpath = "D:/Documents/ENSC/GitHub/AlBidert/docs/dials/"
-        self.num_fichier = len(fnmatch.filter(os.listdir(dirpath), "dialogue*.txt"))
+        self.num_fichier = len(fnmatch.filter(os.listdir(pathdialogue), "dialogue*.txt"))
 
     def load(self, path):
         key = None

@@ -5,8 +5,6 @@
 from interface import Interface
 
 if __name__ == '__main__':
-    # logging.basicConfig()
-    # main()
     interface = Interface()
     interface.mainloop()
 

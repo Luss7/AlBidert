@@ -5,12 +5,14 @@
 from eliza import Eliza
 from eliza import write_in_file
 from eliza import translator
+from eliza import pathdoctor
+from eliza import pathdialogue
 import tkinter as tk
 # import tkinter.ttk as ttk
 # import tkinter.scrolledtext as ScrolledText
 
-pathdoctor = 'D:/Documents/ENSC/GitHub/AlBidert/docs/doctor.txt'
-pathDialogue = 'D:/Documents/ENSC/GitHub/AlBidert/docs/dials/'
+# pathdoctor = 'D:/Documents/ENSC/GitHub/AlBidert/docs/doctor.txt'
+# pathdialogue = 'D:/Documents/ENSC/GitHub/AlBidert/docs/dials/'
 
 # Creating tkinter GUI
 class Interface(tk.Tk):
@@ -74,7 +76,7 @@ class Interface(tk.Tk):
                 self.ChatBox.config(state=tk.DISABLED)
                 self.ChatBox.yview(tk.END)
             else :
-                write_in_file(pathDialogue+"dialogue"+str(self.chatbot.num_fichier)+".txt",msg)
+                write_in_file(pathdialogue+"dialogue"+str(self.chatbot.num_fichier)+".txt",msg)
                 self.ChatBox.config(state=tk.NORMAL)
                 self.ChatBox.insert(tk.END, "You: " + msg + '\n\n')
                 self.ChatBox.config(foreground="#446665", font=("Verdana", 12))
