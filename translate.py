@@ -10,42 +10,81 @@ def stringToVect(text):
     doc = nlp(text);
     return doc.vector;
 
+def fileFrToOneVect(path):
+    with open(path, encoding= 'utf-8') as f:
+        texte_fr = f.read()
+        texte_en = GoogleTranslator().translate(texte_fr)
+        print(texte_en);
+        return stringToVect(texte_en)
 
-phrase ="Ma grand-mère est morte"
+def fileFrToVects(path):
+    with open(path,encoding= 'utf-8') as f:
+        texte_fr = f.readlines()[1:]
+        vectors = []
+        for line_fr in texte_fr:  
+            line_en = GoogleTranslator().translate(line_fr)
+            vect=stringToVect(line_en).tolist();
+            vectors.append(vect);
+        return vectors;
+
+
+
+phrase ="I don't feel very well"
 pathModel='D:/Documents/ENSC/GitHub/AlBidert/docs/mlp_model.pkl'
-pathdialogue='D:/Documents/ENSC/GitHub/AlBidert/docs/dials/dialogue38.txt'
+pathdialogue='D:/Documents/ENSC/GitHub/AlBidert/docs/dials/dialogue2.txt'
 
-
-f= open(pathdialogue)
-texte = f.read();
+# f= open(pathdialogue)
+# texte = f.read();
+# vector = stringToVect(GoogleTranslator().translate(texte))
 model = joblib.load(pathModel)
-vector = stringToVect(GoogleTranslator().translate(texte))
-prediction=model.predict_proba(vector.reshape(1,-1))
-print(np.around(prediction,decimals=2))
+vector = fileFrToOneVect(pathdialogue)
+# print(vector)
+prediction=model.predict_proba(vector.reshape(1,-1))[0]
+print("list1 moy around : ",np.around(prediction,decimals=2))
+
+# vector_2=stringToVect(GoogleTranslator().translate(phrase))
+# prediction_2=model.predict_proba(vector_2.reshape(1,-1));
+# print("prediction phrase : ",np.around(prediction_2,decimals=2))
+
+# vectors = fileFrToVects(pathdialogue)
+# # print(vectors)
+# prediction_2=model.predict_proba(vectors)
+# # print(prediction_2);
+# tab = np.array(prediction_2)
+
+# tab_moy = np.mean(tab, axis=0)
+# list_moy = tab_moy.tolist()
+
+# print("list2 moy around : ",np.around(list_moy,decimals=2))
+
+print(prediction[0]*100)
+
 # translator = GoogleTranslator()
 # print("Google = "+translator.translate(phrase,lang_tgt='en'));
 # print("Deepl ="+ts.deepl(phrase,to_langange='en'));
-def traduction(nom_fichier_in, nom_fichier_out):
-    translator = google_translator()
-    # ouverture du fichier_in en lecture
-    with open(path + nom_fichier_in, 'r') as file_in:
-        # on récupère le contenu du fichier texte
-        texte_in = file_in.read()
-        nb_char = len(texte_in);
-        if (nb_char%5000 == 0):
-            entier = nb_char/5000;
-        else :
-            entier = 1+(nb_char//5000);
-        print(entier);
-        for i in range(entier):
-            # couper le texte
-            print(i);
-            texte = texte_in[i*5000:((i+1)*5000)-1];
-            print(texte);
-            # traduction texte
-            texte_out = translator.translate(texte, lang_tgt='fr')
-            with open(path + nom_fichier_out, 'a',encoding='utf-8') as file_out:
-                file_out.write(texte_out)
+
+
+# def traduction(nom_fichier_in, nom_fichier_out):
+#     translator = google_translator()
+#     # ouverture du fichier_in en lecture
+#     with open(path + nom_fichier_in, 'r') as file_in:
+#         # on récupère le contenu du fichier texte
+#         texte_in = file_in.read()
+#         nb_char = len(texte_in);
+#         if (nb_char%5000 == 0):
+#             entier = nb_char/5000;
+#         else :
+#             entier = 1+(nb_char//5000);
+#         print(entier);
+#         for i in range(entier):
+#             # couper le texte
+#             print(i);
+#             texte = texte_in[i*5000:((i+1)*5000)-1];
+#             print(texte);
+#             # traduction texte
+#             texte_out = translator.translate(texte, lang_tgt='fr')
+#             with open(path + nom_fichier_out, 'a',encoding='utf-8') as file_out:
+#                 file_out.write(texte_out)
 
 # programme principal
 # path = "D:/Documents/ENSC/GitHub/AlBidert/Chatbot/"

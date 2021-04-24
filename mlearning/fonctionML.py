@@ -41,21 +41,26 @@ def exportMlpLearning(fichier_csv_in,fichier_out):
     df_isear = codageBinaire(df_isear,"Emotion");
 
     #Séparation des données
-    X= df_isear.iloc[:,0:300];
+    X=df_isear.iloc[:,0:300];
     y=df_isear.iloc[:,300:307];
     print("Separation données d'entrainement / données de test...")
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4)
+    print(X_test);
 
     #Modèle Reseau neuronne
     mlp=MLPClassifier();
 
     #entrainement du modele
     print("Entrainement du modèle...")
-    mlp = mlp.fit(X_train,y_train);
+    mlp.fit(X_train,y_train);
 
     #Afficher le score du modèle
     print(df_isear,"Emotion")
     print("Score du modele = "+str(mlp.score(X_test,y_test)));
+
+    prediction_2=mlp.predict(X_test)
+    print("prediction 2 : ",prediction_2);
+    # print("prediction proba 2 fichier : ",np.around(prediction_2,decimals=2))
 
     #Exportation du modele
     print("Exportation du modele...")
