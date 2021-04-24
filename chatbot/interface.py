@@ -2,6 +2,7 @@
 # coding: utf-8
 # interface.py
 
+import os
 from deep_translator import GoogleTranslator
 from eliza import Eliza
 from eliza import write_in_file
@@ -28,8 +29,7 @@ def stringToVect(text):
 # Creating tkinter GUI
 class Interface(tk.Tk):
     def resultEmotion(self,vect):
-        # self.ecrire(str(np.around(vect,decimals=2))+'\n',"User")
-        self.ecrire("Voici vos résultats : \n\n","Emotions");
+        self.ecrire("Résultats de l'analyse : \n\n","Emotions");
         vectEmotion = ["       Colère","      Dégout","           Peur","Culpabilité","            Joie","   Tristesse","         Honte"];
         for i in range(len(vect)):
             self.ecrireEmotion(vectEmotion[i],vect[i]*100);
@@ -61,7 +61,6 @@ class Interface(tk.Tk):
 
         self.chatbot = Eliza()
         self.chatbot.load(pathdoctor)
-        
         self.initialize()
 
     def initialize(self):
@@ -97,6 +96,7 @@ class Interface(tk.Tk):
         self.SendButton.place(x=680, y=551, height=90)
 
     def get_response(self):
+        currentFile=pathdialogue+"dialogue"+str(self.chatbot.num_fichier)+".txt"
         msg = self.EntryBox.get("1.0", 'end-1c').strip()
         self.EntryBox.delete("0.0", tk.END)
 
@@ -111,31 +111,34 @@ class Interface(tk.Tk):
                 self.ChatBox.yview(tk.END)
                 #---Analyse de tout le texte d'un seul bloc---#
                 #Recupérer le fichier texte sans la première ligne qui est vide#
-                with open(pathdialogue+"dialogue"+str(self.chatbot.num_fichier)+".txt") as f:
-                # with open(pathdialogue+"dialogue.txt") as f :
-                    texte_en = GoogleTranslator().translate(f.read());
-                    print(texte_en);
-                    #print(texte);
-                    #Transformer ce fichier texte en vecteur#
-                    vector = stringToVect(texte_en);
-                    #print(vector);
-                    #utiliser le model pour predire#
-                    #-- Analyse phrase par phrase : texte = f.readlines()[1:];
-                    model = joblib.load(pathModel)
-                    prediction = model.predict_proba(vector.reshape(1,-1))[0];
-                    # predictionArrondi = np.around(prediction,decimals=2)
-                    # self.ecrire("a"*6,"Remplissage");
-                    # self.ChatBox.insert(tk.END,"Colère, Dégout, Peur, Culpabilité, Joie, Tristesse, Honte\n")
-                    # self.ChatBox.insert(tk.END,predictionArrondi)
-                    self.resultEmotion(prediction)
-                    self.ChatBox.config(state=tk.DISABLED)
-                    self.ChatBox.yview(tk.END)
+                if (os.path.isfile(currentFile)):
+                    with open(currentFile) as f:
+                    # with open(pathdialogue+"dialogue.txt") as f :
+                        texte_fr = f.read()
+                        if (texte_fr !='') :
+                            texte_en = GoogleTranslator().translate(texte_fr)
+
+                            #Transformer ce fichier texte en vecteur#
+                            vector = stringToVect(texte_en);
+
+                            #utiliser le model pour predire#
+                            model = joblib.load(pathModel)
+                            prediction = model.predict_proba(vector.reshape(1,-1))[0];
+                            
+                            #Affichage résultats
+                            self.resultEmotion(prediction)
+
+                            self.ChatBox.config(state=tk.DISABLED)
+                            self.ChatBox.yview(tk.END)
+                else :
+                    print("ERROR : Rien à analyser");
+                    self.destroy();
             else :
                 write_in_file(pathdialogue+"dialogue"+str(self.chatbot.num_fichier)+".txt",msg)
                 self.ChatBox.config(state=tk.NORMAL)
                 self.ChatBox.insert(tk.END, "You: " + msg + '\n\n',"User")
                 self.ChatBox.yview(tk.END)
-                print(GoogleTranslator().translate(msg)); #anglais par défaut
+                # print(GoogleTranslator().translate(msg)); #anglais par défaut
                 res = self.chatbot.respond(GoogleTranslator().translate(msg)); #anglais par défaut
 
                 # if res == "quit":

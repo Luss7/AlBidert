@@ -330,7 +330,7 @@ key: my 2
     reasmb: Who else in thour family (4) ?
     reasmb: thour (3) ?
   decomp: * my *
-    reasmb: Tell me more on what you feel about this
+    reasmb: Tell me more on what thou feel about this
     reasmb: Is it important thour (2) ?
 key: can
   decomp: * can thou *

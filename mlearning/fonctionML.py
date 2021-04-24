@@ -1,3 +1,4 @@
+from bs4.element import TemplateString
 import pandas as pd
 import spacy
 import joblib
@@ -5,6 +6,8 @@ import os
 import numpy as np
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split
+
+testSize = 0.10;
 
 #-----------------Fonctions------------------#
 def stringToVect(text):
@@ -44,29 +47,28 @@ def exportMlpLearning(fichier_csv_in,fichier_out):
     X=df_isear.iloc[:,0:300];
     y=df_isear.iloc[:,300:307];
     print("Separation données d'entrainement / données de test...")
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4)
-    print(X_test);
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=testSize)
+    # print(X_test);
 
     #Modèle Reseau neuronne
     mlp=MLPClassifier();
 
     #entrainement du modele
     print("Entrainement du modèle...")
-    mlp.fit(X_train,y_train);
+    mlp.fit(X,y);
 
     #Afficher le score du modèle
     print(df_isear,"Emotion")
     print("Score du modele = "+str(mlp.score(X_test,y_test)));
 
-    prediction_2=mlp.predict(X_test)
-    print("prediction 2 : ",prediction_2);
+    # prediction_2=mlp.predict(X_test)
     # print("prediction proba 2 fichier : ",np.around(prediction_2,decimals=2))
 
     #Exportation du modele
     print("Exportation du modele...")
     # print("Avant exportation :"+str(np.around(mlp.predict_proba(stringToVect("My grandmother is dead").reshape(1,-1)),decimals=2)));
     joblib.dump(mlp, fichier_out)
-
+    print("Done !")
 
 # # Initialisation du modèle Regression linéaire
 # lr = LinearRegression()

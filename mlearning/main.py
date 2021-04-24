@@ -12,7 +12,7 @@ if __name__ == '__main__':
 
     #Algo de Machine Learning 
     fichier_csv=fichier_out
-    fichier_modele = "D:/Documents/ENSC/GitHub/AlBidert/docs/mlp_model2.pkl"
+    fichier_modele = "D:/Documents/ENSC/GitHub/AlBidert/docs/models/mlp_model4.pkl"
     print("Algo Machine Learning")
     exportMlpLearning(fichier_csv,fichier_modele)
 
