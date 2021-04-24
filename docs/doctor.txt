@@ -1,4 +1,4 @@
-initial: Bonjour, je suis Bidert. AlBidert. Et... I'll be there for you ! Qu'est-ce qui vous amène ? 
+initial: Bonjour, je suis Bidert. AlBidert. Et... I'll be there for you ! Qu'est-ce qui t'amène ? 
 final: Goodbye. It was a pleasure to talk to thou.
 done: done
 quit: bye

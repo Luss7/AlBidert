@@ -13,7 +13,7 @@ import joblib
 import spacy
 import numpy as np
 
-pathModel='D:/Documents/ENSC/GitHub/AlBidert/docs/mlp_model.pkl'
+pathModel='D:/Documents/ENSC/GitHub/AlBidert/docs/models/mlp_model.pkl'
 
 def stringToVect(text):
     nlp = spacy.load('en_core_web_md');
