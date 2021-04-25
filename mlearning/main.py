@@ -6,9 +6,9 @@ if __name__ == '__main__':
     fichier_out="D:/Documents/ENSC/GitHub/AlBidert/docs/ISEAR_0/isear_vector/isear_vector.csv"
 
     #Remplacer le texte de chaque ligne d'un fichier csv par son vecteur associé#
-    # print("Remplacement du texte par vecteur...")
-    # csvTextToCsvVect(fichier_in,fichier_out);
-    # print("Done")
+    print("Remplacement du texte par vecteur...")
+    csvTextToCsvVect(fichier_in,fichier_out);
+    print("Done")
 
     #Algo de Machine Learning 
     fichier_csv=fichier_out

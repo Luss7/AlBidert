@@ -2,12 +2,12 @@
 # coding: utf-8
 # interface.py
 
-import os
 from deep_translator import GoogleTranslator
 from eliza import Eliza
 from eliza import write_in_file
 from eliza import pathdoctor
 from eliza import pathdialogue
+from eliza import os
 import tkinter as tk
 import joblib
 import spacy
@@ -28,6 +28,7 @@ def stringToVect(text):
 
 # Creating tkinter GUI
 class Interface(tk.Tk):
+    #Fonction pour emotions
     def resultEmotion(self,vect):
         self.ecrire("Résultats de l'analyse : \n\n","Emotions");
         vectEmotion = ["       Colère","      Dégout","           Peur","Culpabilité","            Joie","   Tristesse","         Honte"];
@@ -41,10 +42,11 @@ class Interface(tk.Tk):
         self.ecrire(" "*int(pourcentage),"Remplissage");
         self.ecrire("  "+str(int(pourcentage))+'%\n\n',"User");
    
+   
     def ecrire(self,msg,tag):
         self.ChatBox.insert(tk.END,msg,tag);
         
-   
+    #Configure les tag pour le style des phrases affichées
     def configurationTag(self):
         self.ChatBox.tag_configure("Info", foreground="black", font=("Verdana",11,"bold","italic"));
         self.ChatBox.tag_configure("User", foreground="black",font=("Verdana",11));
@@ -102,6 +104,7 @@ class Interface(tk.Tk):
 
         #Analyse des émotions
         if msg != '':
+            #Arret du dialogue -> Analyse des émotions
             if msg == "done" or msg=="DONE":
                 #Albidert dit aurevoir
                 bye = self.chatbot.final()
@@ -109,6 +112,7 @@ class Interface(tk.Tk):
                 self.ecrire("AlBidert: " + aurevoir + '\n\n',"AlBidert")
                 self.ecrire("Analyse de vos émotions en cours...\n\n","Info")
                 self.ChatBox.yview(tk.END)
+                
                 #---Analyse de tout le texte d'un seul bloc---#
                 #Recupérer le fichier texte sans la première ligne qui est vide#
                 if (os.path.isfile(currentFile)):
@@ -130,9 +134,13 @@ class Interface(tk.Tk):
 
                             self.ChatBox.config(state=tk.DISABLED)
                             self.ChatBox.yview(tk.END)
+
+                #Si dialogueX.txt est vide
                 else :
                     print("ERROR : Rien à analyser");
                     self.destroy();
+
+            #Cas où l'utilisateur ecrit autre chose que "DONE" ou "done", il dialogue avec le chatbot
             else :
                 write_in_file(pathdialogue+"dialogue"+str(self.chatbot.num_fichier)+".txt",msg)
                 self.ChatBox.config(state=tk.NORMAL)

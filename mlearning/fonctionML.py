@@ -1,4 +1,3 @@
-from bs4.element import TemplateString
 import pandas as pd
 import spacy
 import joblib
@@ -10,10 +9,6 @@ from sklearn.model_selection import train_test_split
 testSize = 0.4;
 
 #-----------------Fonctions------------------#
-def stringToVect(text):
-    nlp = spacy.load('en_core_web_md');
-    doc = nlp(text);
-    return doc.vector;
 
 def codageBinaire(df,colonne):
     # Codage binaire dans un nouveau DataFrame
@@ -25,11 +20,6 @@ def codageBinaire(df,colonne):
     # Suppression de la colonne initiale
     new_df = df.drop(columns=[colonne])
     return new_df;
-
-def stringToVect(text):
-    nlp = spacy.load('en_core_web_md');
-    doc = nlp(text);
-    return doc.vector;
 
 def exportMlpLearning(fichier_csv_in,fichier_out):
     if os.path.exists(fichier_out):
