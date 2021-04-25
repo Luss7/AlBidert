@@ -1,0 +1,56 @@
+ALBIDERT
+|   .gitignore
+|   LICENSE
+|   README.md
+|   
++---chatbot
+|   |   eliza.py
+|   |   interface.py
+|   |   main.py
+|   |   
+|   \---__pycache__
+|           eliza.cpython-37.pyc
+|           interface.cpython-37.pyc
+|           
++---docs
+|   |   doctor.txt
+|   |   
+|   +---dials
+|   |       dialogue0.txt
+|   |       dialogue1.txt
+|   |       
+|   +---ISEAR_0
+|   |   |   ISEAR Questionnaire & Codebook.doc
+|   |   |   isear.html
+|   |   |   
+|   |   +---isear_databank
+|   |   |       isear_clean.csv
+|   |   |       isear_clean1.csv
+|   |   |       isear_clean10.csv
+|   |   |       isear_clean1000.csv
+|   |   |       isear_clean2.csv
+|   |   |       isear_databank.mdb
+|   |   |       
+|   |   \---isear_vector
+|   |           isear_vector.csv
+|   |           isear_vector10.csv
+|   |           
+|   \---models
+|           mlp_model.pkl
+|           mlp_model1.pkl
+|           mlp_model2.pkl
+|           mlp_model3.pkl
+|           mlp_model4.pkl
+|           
++---mlearning
+|   |   csvVect.py
+|   |   fonctionML.py
+|   |   main.py
+|   |   
+|   \---__pycache__
+|           csvVect.cpython-37.pyc
+|           fonctionML.cpython-37.pyc
+|           
+\---tests
+        testsModeles.py
+        

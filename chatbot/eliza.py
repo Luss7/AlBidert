@@ -2,14 +2,10 @@
 # coding: utf-8
 # eliza.py
 
-# import logging
 import random
 import re
-# from collections import namedtuple
-# from deep_translator import GoogleTranslator
 import fnmatch
 import os, os.path
-import pydeepl
 
 pathdoctor = 'D:/Documents/ENSC/GitHub/AlBidert/docs/doctor.txt'
 pathdialogue = 'D:/Documents/ENSC/GitHub/AlBidert/docs/dials/'
