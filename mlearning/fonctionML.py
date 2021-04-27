@@ -1,8 +1,6 @@
 import pandas as pd
-import spacy
 import joblib
 import os
-import numpy as np
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split
 
@@ -27,17 +25,20 @@ def exportMlpLearning(fichier_csv_in,fichier_out):
     print("Chargement des données du fichier csv...")
     #---Charger les données---#
     df_isear = pd.read_csv(fichier_csv_in,encoding= 'unicode_escape');
+    print(df_isear)
 
     print("Nettoyage des données du fichier...")
     #---Nettoyer les données---#
     #Codage binaire de la colonne émotion
     df_isear = codageBinaire(df_isear,"Emotion");
+    print(df_isear);
+
 
     #Séparation des données
     X=df_isear.iloc[:,0:300];
     y=df_isear.iloc[:,300:307];
     print("Separation données d'entrainement / données de test...")
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=testSize)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4)
     # print(X_test);
 
     #Modèle Reseau neuronne
@@ -56,7 +57,6 @@ def exportMlpLearning(fichier_csv_in,fichier_out):
 
     #Exportation du modele
     print("Exportation du modele...")
-    # print("Avant exportation :"+str(np.around(mlp.predict_proba(stringToVect("My grandmother is dead").reshape(1,-1)),decimals=2)));
     joblib.dump(mlp, fichier_out)
     print("Done !")
 

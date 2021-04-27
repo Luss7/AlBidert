@@ -28,13 +28,13 @@ def stringToVect(text):
 
 # Creating tkinter GUI
 class Interface(tk.Tk):
-    #Fonction pour emotions
+    #Fonction pour  afficher emotions
     def resultEmotion(self,vect):
         self.ecrire("Résultats de l'analyse : \n\n","Emotions");
         vectEmotion = ["       Colère","      Dégout","           Peur","Culpabilité","            Joie","   Tristesse","         Honte"];
         for i in range(len(vect)):
             self.ecrireEmotion(vectEmotion[i],vect[i]*100);
-            
+    
     def ecrireEmotion(self,emotion,pourcentage):
         pourcentage = np.around(pourcentage);
         self.ecrire(emotion+" : ","Emotions")
@@ -53,18 +53,20 @@ class Interface(tk.Tk):
         self.ChatBox.tag_configure("AlBidert", foreground="#29947c", font=("Verdana",11,"bold"));
         self.ChatBox.tag_configure("Remplissage",background="#3c9d9b",foreground="#3c9d9b", font=("Verdana",13,"bold"));
         self.ChatBox.tag_configure("Emotions",foreground="black", font=("Arial",11,"bold"))
-   
+    
+    #Initialisation de l'interface
     def __init__(self,*args, **kwargs):
         tk.Tk.__init__(self,*args, **kwargs)
 
+        #fenetre principale
         self.title("AlBidert")
-        # self.geometry("400x500")
         self.geometry("815x650")
 
         self.chatbot = Eliza()
         self.chatbot.load(pathdoctor)
         self.initialize()
 
+    #Initialisation des composants de l'interface
     def initialize(self):
         # Create Chat window
         self.ChatBox = tk.Text(self, bd=0, bg="white", height="8", width="50", foreground="#000000", font=("Verdana",11))
@@ -99,6 +101,7 @@ class Interface(tk.Tk):
 
     def get_response(self):
         currentFile=pathdialogue+"dialogue"+str(self.chatbot.num_fichier)+".txt"
+        # currentFile=pathdialogue+"dialogue1.txt"
         msg = self.EntryBox.get("1.0", 'end-1c').strip()
         self.EntryBox.delete("0.0", tk.END)
 
